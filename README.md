@@ -41,7 +41,8 @@ Each course applies a new set of analytical skills to one of two ongoing busines
 | Milestone | Focus | Key Deliverables |
 |---|---|---|
 | 1 — Planning & Inspection | Initial data structuring and variable analysis | Executive summary, class balance check, engagement comparison by claim status |
-| 2+ | EDA, statistical testing, modeling | Upcoming |
+| 2 — EDA | Exploratory data analysis, visualization & Tableau Story | Executive summary, EDA notebook, Tableau Story dashboard |
+| 3+ | Statistical testing, modeling | Upcoming |
 
 **Key findings (Milestone 1):**
 - Dataset is nearly balanced: **50.3% claims, 49.7% opinions** — no class imbalance issue for modeling
@@ -49,6 +50,11 @@ Each course applies a new set of analytical skills to one of two ongoing busines
 - Claims maintain a ~33% like-per-view ratio vs. ~22% for opinions — higher relative engagement per view as well
 - **Author ban status is a strong proxy signal**: authors flagged as "Banned" or "Under Review" are heavily associated with claim videos (share counts: 17,774–19,018), while active/good-standing authors are predominantly associated with opinion videos (share counts: 108–124)
 - These patterns suggest author status and engagement metrics could serve as powerful features in a future classification model
+
+**Key findings (Milestone 2 — EDA):**
+- Engagement metrics are heavily right-skewed: a tiny fraction of highly viral videos drives the vast majority of platform traffic — claim videos dominate total platform views while opinion content remains low-engagement
+- Banned and "under review" authors are overwhelmingly associated with high-engagement claim videos; active authors show a relatively even split between claims and opinions — making historical moderation status a primary candidate feature for the classification model
+- Visualizations built in both Python (Matplotlib/Seaborn) and Tableau (Tableau Story) to communicate findings to stakeholders
 
 ---
 
