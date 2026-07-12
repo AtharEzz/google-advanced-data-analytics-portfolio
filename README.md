@@ -2,85 +2,134 @@
 
 Guided case study projects completed as part of the **Google Advanced Data Analytics Professional Certificate** (in progress), following the PACE framework (Plan, Analyze, Construct, Execute) used in professional data analytics work.
 
-Each course applies a new set of analytical skills to one of two ongoing business scenarios: predicting user churn for **Waze** (navigation app) and classifying user claims for **TikTok**. Each milestone builds on the previous one, simulating a real end-to-end analytics project.
+Two parallel business scenarios run across the full certificate, with each course adding a new layer of analytical depth to the same ongoing project:
+
+- **Waze** - Predicting monthly user churn to improve retention
+- **TikTok** - Classifying video submissions as claims or opinions to support content moderation
 
 ---
 
 ## Project 1: Waze User Churn Prediction
 
-**Business problem:** Waze's data team needs to identify users likely to uninstall or stop using the app (churn), in order to improve retention strategies.
+**Business problem:** Waze needs to identify users likely to uninstall or stop using the app, enabling proactive retention campaigns before users churn.
 
-**Dataset:** 14,999 users, 13 variables (driving behavior, device type, session data, churn label)
+**Dataset:** 14,999 users, 13 variables covering driving behavior, session activity, device type, and churn label
 
-| Milestone | Focus | Key Deliverables |
+### Progress
+
+| Phase | Focus | Status |
 |---|---|---|
-| 1 — Planning | Initial data inspection & profiling | Executive summary, missing value analysis, churn rate baseline |
-| 2 — EDA | Exploratory data analysis & visualization | Executive summary, distribution analysis, outlier detection, churn behavior visualization |
-| 3+ | Statistical testing, modeling | Upcoming |
+| Data Inspection & Profiling | Structural audit, missing value analysis, churn baseline | Complete |
+| Exploratory Data Analysis | Distribution analysis, outlier detection, behavioral visualization | Complete |
+| Statistical Testing | Hypothesis testing | Upcoming |
+| Regression Modeling | Predictive modeling | Upcoming |
+| ML Classification | Final classification model | Upcoming |
 
-**Key findings (Milestone 1 — Data Inspection):**
+### Key Findings
+
+**Data Inspection:**
 - 17.74% of users churned; 82.26% retained
-- 700 missing values in the label column; device distribution consistent across missing vs. non-missing rows — likely missing at random
-- Churned users drove ~240% more km per driving day than retained users
-- Device type (iPhone vs. Android) not correlated with churn
+- 700 missing values in the label column; device distribution consistent across missing vs. non-missing rows - likely missing at random, not systematic bias
+- Churned users drove ~240% more km per driving day than retained users - a strong behavioral signal
+- Device type (iPhone vs. Android) shows no correlation with churn
 
-**Key findings (Milestone 2 — EDA):**
-- Users who drove all 30 days had a **0% churn rate** vs. **40% churn rate** for inactive users — app engagement frequency is the strongest early churn signal identified
-- Positive correlation between daily driving distance and churn — longer-distance drivers are more likely to churn
-- User representation stable across all tenure lengths up to ~10 years
-- Outliers identified in `driven_km_drives`, `activity_days`, and `driving_days` — flagged for handling before modeling
+**EDA:**
+- Users who drove all 30 days in the month had a **0% churn rate** vs. **40% churn rate** for inactive users - app engagement frequency is the strongest early churn signal identified
+- Positive correlation between daily driving distance and churn - longer-distance drivers are paradoxically more likely to churn, suggesting a distinct high-usage but low-satisfaction profile
+- User representation is stable across all tenure lengths up to ~10 years - churn is not concentrated in newer or older users
+- Outliers identified in `driven_km_drives`, `activity_days`, and `driving_days` - flagged for handling before modeling
 
 ---
 
 ## Project 2: TikTok Claims Classification
 
-**Business problem:** TikTok needs to automate the classification of user-submitted content as either "claims" (verifiable factual statements) or "opinions" (subjective expressions), to prioritize content moderation resources efficiently.
+**Business problem:** TikTok needs to automate the classification of user-submitted content as either "claims" (verifiable factual statements that require moderation review) or "opinions" (subjective expressions), to prioritize content moderation resources efficiently at scale.
 
-**Dataset:** ~19,000 videos with engagement metrics (views, likes, shares, comments), author status, and claim/opinion label
+**Dataset:** ~19,000 videos with engagement metrics (views, likes, shares, comments), author verification and ban status, and claim/opinion label
 
-| Milestone | Focus | Key Deliverables |
+### Progress
+
+| Phase | Focus | Status |
 |---|---|---|
-| 1 — Planning & Inspection | Initial data structuring and variable analysis | Executive summary, class balance check, engagement comparison by claim status |
-| 2 — EDA | Exploratory data analysis, visualization & Tableau Story | Executive summary, EDA notebook, Tableau Story dashboard |
-| 3+ | Statistical testing, modeling | Upcoming |
+| Data Inspection & Profiling | Class balance, engagement baseline, variable relationships | Complete |
+| Exploratory Data Analysis | Distribution analysis, Tableau Story visualization | Complete |
+| Hypothesis Testing | Two-sample t-test on verification status vs. view count | Complete |
+| Regression Modeling | Predictive modeling | Upcoming |
+| ML Classification | Final classification model | Upcoming |
 
-**Key findings (Milestone 1):**
-- Dataset is nearly balanced: **50.3% claims, 49.7% opinions** — no class imbalance issue for modeling
-- Claims accumulate **~100x more views** than opinions: mean views for claims = 501,029 vs. opinions = 4,956 — a striking engagement gap suggesting claims spread virally
-- Claims maintain a ~33% like-per-view ratio vs. ~22% for opinions — higher relative engagement per view as well
-- **Author ban status is a strong proxy signal**: authors flagged as "Banned" or "Under Review" are heavily associated with claim videos (share counts: 17,774–19,018), while active/good-standing authors are predominantly associated with opinion videos (share counts: 108–124)
-- These patterns suggest author status and engagement metrics could serve as powerful features in a future classification model
+### Key Findings
 
-**Key findings (Milestone 2 — EDA):**
-- Engagement metrics are heavily right-skewed: a tiny fraction of highly viral videos drives the vast majority of platform traffic — claim videos dominate total platform views while opinion content remains low-engagement
-- Banned and "under review" authors are overwhelmingly associated with high-engagement claim videos; active authors show a relatively even split between claims and opinions — making historical moderation status a primary candidate feature for the classification model
-- Visualizations built in both Python (Matplotlib/Seaborn) and Tableau (Tableau Story) to communicate findings to stakeholders
+**Data Inspection:**
+- Dataset is nearly balanced: 50.3% claims, 49.7% opinions - no class imbalance concern for modeling
+- Claims accumulate ~100x more views than opinions: mean views for claims = 501,029 vs. opinions = 4,956
+- Claims maintain a ~33% like-per-view ratio vs. ~22% for opinions - higher relative engagement per view
+- Authors flagged as "Banned" or "Under Review" are overwhelmingly associated with claim videos (share counts: 17,774-19,018), while active authors are predominantly associated with opinion videos (share counts: 108-124)
 
+**EDA:**
+- Engagement metrics are heavily right-skewed: a tiny fraction of highly viral videos drives the vast majority of platform traffic, overwhelmingly from claim content
+- Clear behavioral boundaries separate claim and opinion videos across all engagement metrics
+- Author moderation status confirmed as a primary candidate feature for the upcoming classification model
+- Visualizations produced in both Python (Matplotlib/Seaborn) and Tableau (Tableau Story)
 
-**Key findings (Milestone 3 - Hypothesis Testing):**
-Research question: Does creator verification status significantly impact video view count?
-Conducted a two-sample Welch's t-test (significance level α = 0.05)
-Unverified accounts: mean 265,664 views vs. verified accounts: mean 91,439 views
-t-statistic: -25.50, p-value: 2.61 × 10⁻¹²⁰ — null hypothesis rejected
-Counterintuitive finding: unverified accounts average nearly 3x more views than verified ones — explained by their higher volume of claim videos, which drive massive view spikes (confirmed by Course 2 EDA)
-verified_status identified as a key feature candidate for the upcoming classification model
+**Hypothesis Testing:**
+- Research question: Does creator verification status significantly impact video view count?
+- Method: Two-sample Welch's t-test (α = 0.05) - chosen because it does not assume equal variances between groups
+- Unverified accounts: mean 265,664 views vs. verified accounts: mean 91,439 views
+- t-statistic: -25.50, p-value: 2.61 x 10^-120 - null hypothesis rejected
+- Counterintuitive finding: unverified accounts average nearly 3x more views than verified ones - explained by their higher volume of claim videos, which drive massive view spikes
+- `verified_status` confirmed as a key feature for the upcoming classification model
 
 ---
 
-## Framework
+## PACE Framework
 
-Both projects follow the **PACE** framework:
-- **Plan** — Define the problem, understand stakeholder needs, assess the data
-- **Analyze** — Inspect, clean, and explore the data
-- **Construct** — Build statistical models or visualizations
-- **Execute** — Communicate findings to stakeholders via executive summaries
+Both projects follow the PACE framework used in professional data analytics:
 
-Each milestone includes a Jupyter notebook (analysis) and an executive summary PDF (stakeholder communication) — reflecting the dual technical/communication deliverables of real analytics work.
+- **Plan** - Define the business problem, understand stakeholder needs, assess data structure
+- **Analyze** - Inspect, clean, and explore the data
+- **Construct** - Build statistical tests, models, or visualizations
+- **Execute** - Communicate findings to stakeholders via executive summaries
+
+Each completed phase includes a Jupyter notebook (technical analysis) and an executive summary PDF (stakeholder communication), reflecting the dual technical and communication deliverables expected in real analytics roles.
+
+---
+
+## Repository Structure
+
+```
+google-advanced-data-analytics-portfolio/
+|
+|- 02-Waze-User-Churn-Prediction/
+|   |- milestone-1-planning/
+|   |   |- Activity_Course_2_Waze_project_lab.ipynb
+|   |   |- Milestone_1_Executive_Summary.pdf
+|   |   |- Waze_project_proposal.pdf
+|   |   |- waze_dataset.csv
+|   |
+|   |- milestone-2-eda/
+|       |- Waze_Exploratory_Data_Analysis.ipynb
+|       |- Waze_Course_2_executive_summary.pdf
+|
+|- tiktok-claims-project/
+|   |- milestone-1-planning/
+|   |   |- Activity_Course_1_TikTok_project_lab.ipynb
+|   |   |- TikTok_Course_1_executive_summary.pdf
+|   |   |- Data_Dictionary.pdf
+|   |
+|   |- milestone-2-eda/
+|   |   |- EDA_TikTok_project_lab.ipynb
+|   |   |- TikTok_Course_2_executive_summary.pdf
+|   |   |- Tableau_Story.pdf
+|   |
+|   |- milestone-3-hypothesis-testing/
+|       |- Activity_Course_4_TikTok_project_lab.ipynb
+|       |- TikTok_Course_3_executive_summary.pdf
+```
 
 ---
 
 ## Tools & Skills
 
-Python (Pandas, NumPy, Matplotlib, Seaborn), statistical analysis, EDA, data visualization, stakeholder communication
+Python (Pandas, NumPy, Matplotlib, Seaborn, SciPy), Tableau, statistical analysis, hypothesis testing, EDA, data visualization, stakeholder communication
 
-**Certificate:** Google Advanced Data Analytics Professional Certificate (Coursera) — in progress
+**Certificate:** Google Advanced Data Analytics Professional Certificate (Coursera) - in progress
