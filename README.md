@@ -21,7 +21,7 @@ Two parallel business scenarios run across the full certificate, with each cours
 |---|---|---|
 | Data Inspection & Profiling | Structural audit, missing value analysis, churn baseline | Complete |
 | Exploratory Data Analysis | Distribution analysis, outlier detection, behavioral visualization | Complete |
-| Statistical Testing | Hypothesis testing | Upcoming |
+| Hypothesis Testing | Two-sample t-test on device type vs. drive count | Complete |
 | Regression Modeling | Predictive modeling | Upcoming |
 | ML Classification | Final classification model | Upcoming |
 
@@ -36,14 +36,22 @@ Two parallel business scenarios run across the full certificate, with each cours
 **EDA:**
 - Users who drove all 30 days in the month had a **0% churn rate** vs. **40% churn rate** for inactive users - app engagement frequency is the strongest early churn signal identified
 - Positive correlation between daily driving distance and churn - longer-distance drivers are paradoxically more likely to churn, suggesting a distinct high-usage but low-satisfaction profile
-- User representation is stable across all tenure lengths up to ~10 years - churn is not concentrated in newer or older users
-- Outliers identified in `driven_km_drives`, `activity_days`, and `driving_days` - flagged for handling before modeling
+- User representation stable across all tenure lengths up to ~10 years - churn is not concentrated in newer or older users
+- Outliers identified in driven_km_drives, activity_days, and driving_days - flagged for handling before modeling
+
+**Hypothesis Testing:**
+- Research question: Does device type (iPhone vs. Android) significantly affect the number of drives per month?
+- Method: Two-sample Welch's t-test (a = 0.05, equal_var=False)
+- iPhone users: mean 67.86 drives/month vs. Android users: mean 66.23 drives/month
+- t-statistic: 1.46, p-value: 0.1434 - fail to reject the null hypothesis
+- The small difference in drive counts between device types is not statistically significant - just random variation
+- Business recommendation: device type is a low-priority feature for the churn model; focus on behavioral features like app engagement days and km driven instead
 
 ---
 
 ## Project 2: TikTok Claims Classification
 
-**Business problem:** TikTok needs to automate the classification of user-submitted content as either "claims" (verifiable factual statements that require moderation review) or "opinions" (subjective expressions), to prioritize content moderation resources efficiently at scale.
+**Business problem:** TikTok needs to automate the classification of user-submitted content as either claims (verifiable factual statements requiring moderation review) or opinions (subjective expressions), to prioritize content moderation resources efficiently at scale.
 
 **Dataset:** ~19,000 videos with engagement metrics (views, likes, shares, comments), author verification and ban status, and claim/opinion label
 
@@ -63,7 +71,7 @@ Two parallel business scenarios run across the full certificate, with each cours
 - Dataset is nearly balanced: 50.3% claims, 49.7% opinions - no class imbalance concern for modeling
 - Claims accumulate ~100x more views than opinions: mean views for claims = 501,029 vs. opinions = 4,956
 - Claims maintain a ~33% like-per-view ratio vs. ~22% for opinions - higher relative engagement per view
-- Authors flagged as "Banned" or "Under Review" are overwhelmingly associated with claim videos (share counts: 17,774-19,018), while active authors are predominantly associated with opinion videos (share counts: 108-124)
+- Authors flagged as Banned or Under Review are overwhelmingly associated with claim videos (share counts: 17,774-19,018), while active authors are predominantly associated with opinion videos (share counts: 108-124)
 
 **EDA:**
 - Engagement metrics are heavily right-skewed: a tiny fraction of highly viral videos drives the vast majority of platform traffic, overwhelmingly from claim content
@@ -73,11 +81,11 @@ Two parallel business scenarios run across the full certificate, with each cours
 
 **Hypothesis Testing:**
 - Research question: Does creator verification status significantly impact video view count?
-- Method: Two-sample Welch's t-test (α = 0.05) - chosen because it does not assume equal variances between groups
+- Method: Two-sample Welch's t-test (a = 0.05)
 - Unverified accounts: mean 265,664 views vs. verified accounts: mean 91,439 views
 - t-statistic: -25.50, p-value: 2.61 x 10^-120 - null hypothesis rejected
 - Counterintuitive finding: unverified accounts average nearly 3x more views than verified ones - explained by their higher volume of claim videos, which drive massive view spikes
-- `verified_status` confirmed as a key feature for the upcoming classification model
+- verified_status confirmed as a key feature for the upcoming classification model
 
 ---
 
@@ -107,8 +115,12 @@ google-advanced-data-analytics-portfolio/
 |   |   |- waze_dataset.csv
 |   |
 |   |- milestone-2-eda/
-|       |- Waze_Exploratory_Data_Analysis.ipynb
-|       |- Waze_Course_2_executive_summary.pdf
+|   |   |- Waze_Exploratory_Data_Analysis.ipynb
+|   |   |- Waze_Course_2_executive_summary.pdf
+|   |
+|   |- milestone-3-hypothesis-testing/
+|       |- Activity_Course_4_Waze_project_lab.ipynb
+|       |- Waze_Course_3_executive_summary.pdf
 |
 |- tiktok-claims-project/
 |   |- milestone-1-planning/
@@ -124,6 +136,7 @@ google-advanced-data-analytics-portfolio/
 |   |- milestone-3-hypothesis-testing/
 |       |- Activity_Course_4_TikTok_project_lab.ipynb
 |       |- TikTok_Course_3_executive_summary.pdf
+|       
 ```
 
 ---
