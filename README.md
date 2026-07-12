@@ -56,6 +56,15 @@ Each course applies a new set of analytical skills to one of two ongoing busines
 - Banned and "under review" authors are overwhelmingly associated with high-engagement claim videos; active authors show a relatively even split between claims and opinions — making historical moderation status a primary candidate feature for the classification model
 - Visualizations built in both Python (Matplotlib/Seaborn) and Tableau (Tableau Story) to communicate findings to stakeholders
 
+
+**Key findings (Milestone 3 - Hypothesis Testing):**
+Research question: Does creator verification status significantly impact video view count?
+Conducted a two-sample Welch's t-test (significance level α = 0.05)
+Unverified accounts: mean 265,664 views vs. verified accounts: mean 91,439 views
+t-statistic: -25.50, p-value: 2.61 × 10⁻¹²⁰ — null hypothesis rejected
+Counterintuitive finding: unverified accounts average nearly 3x more views than verified ones — explained by their higher volume of claim videos, which drive massive view spikes (confirmed by Course 2 EDA)
+verified_status identified as a key feature candidate for the upcoming classification model
+
 ---
 
 ## Framework
