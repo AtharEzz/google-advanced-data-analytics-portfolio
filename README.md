@@ -2,10 +2,11 @@
 
 Guided case study projects completed as part of the **Google Advanced Data Analytics Professional Certificate** (in progress), following the PACE framework (Plan, Analyze, Construct, Execute) used in professional data analytics work.
 
-Two parallel business scenarios run across the full certificate, with each course adding a new layer of analytical depth to the same ongoing project:
+Three parallel business scenarios run across the full certificate, with each course adding a new layer of analytical depth to the same ongoing project:
 
 - **Waze** - Predicting monthly user churn to improve retention
 - **TikTok** - Classifying video submissions as claims or opinions to support content moderation
+- **Automatidata** - Predicting NYC taxi fare amounts for the NYC TLC
 
 ---
 
@@ -29,31 +30,30 @@ Two parallel business scenarios run across the full certificate, with each cours
 
 **Data Inspection:**
 - 17.74% of users churned; 82.26% retained
-- 700 missing values in the label column; device distribution consistent across missing vs. non-missing rows - likely missing at random, not systematic bias
+- 700 missing values in the label column; device distribution consistent across missing vs. non-missing rows - likely missing at random
 - Churned users drove ~240% more km per driving day than retained users - a strong behavioral signal
 - Device type (iPhone vs. Android) shows no correlation with churn
 
 **EDA:**
-- Users who drove all 30 days in the month had a **0% churn rate** vs. **40% churn rate** for inactive users - app engagement frequency is the strongest early churn signal identified
-- Positive correlation between daily driving distance and churn - longer-distance drivers are paradoxically more likely to churn, suggesting a distinct high-usage but low-satisfaction profile
-- User representation stable across all tenure lengths up to ~10 years - churn is not concentrated in newer or older users
-- Outliers identified in driven_km_drives, activity_days, and driving_days - flagged for handling before modeling
+- Users who drove all 30 days had a **0% churn rate** vs. **40% churn rate** for inactive users - app engagement frequency is the strongest churn signal
+- Positive correlation between daily driving distance and churn - longer-distance drivers paradoxically more likely to churn
+- User representation stable across all tenure lengths up to ~10 years
+- Outliers identified in driven_km_drives, activity_days, and driving_days
 
 **Hypothesis Testing:**
-- Research question: Does device type (iPhone vs. Android) significantly affect the number of drives per month?
-- Method: Two-sample Welch's t-test (a = 0.05, equal_var=False)
-- iPhone users: mean 67.86 drives/month vs. Android users: mean 66.23 drives/month
-- t-statistic: 1.46, p-value: 0.1434 - fail to reject the null hypothesis
-- The small difference in drive counts between device types is not statistically significant - just random variation
-- Business recommendation: device type is a low-priority feature for the churn model; focus on behavioral features like app engagement days and km driven instead
+- Research question: Does device type (iPhone vs. Android) significantly affect monthly drive count?
+- Method: Two-sample Welch's t-test (a = 0.05)
+- iPhone: mean 67.86 drives/month vs. Android: mean 66.23 drives/month
+- t-statistic: 1.46, p-value: 0.1434 - fail to reject null hypothesis
+- Device type is not a significant predictor - focus modeling on behavioral features instead
 
 ---
 
 ## Project 2: TikTok Claims Classification
 
-**Business problem:** TikTok needs to automate the classification of user-submitted content as either claims (verifiable factual statements requiring moderation review) or opinions (subjective expressions), to prioritize content moderation resources efficiently at scale.
+**Business problem:** TikTok needs to automate classification of user-submitted content as claims or opinions to prioritize content moderation resources at scale.
 
-**Dataset:** ~19,000 videos with engagement metrics (views, likes, shares, comments), author verification and ban status, and claim/opinion label
+**Dataset:** ~19,000 videos with engagement metrics, author verification and ban status, and claim/opinion label
 
 ### Progress
 
@@ -68,37 +68,65 @@ Two parallel business scenarios run across the full certificate, with each cours
 ### Key Findings
 
 **Data Inspection:**
-- Dataset is nearly balanced: 50.3% claims, 49.7% opinions - no class imbalance concern for modeling
-- Claims accumulate ~100x more views than opinions: mean views for claims = 501,029 vs. opinions = 4,956
-- Claims maintain a ~33% like-per-view ratio vs. ~22% for opinions - higher relative engagement per view
-- Authors flagged as Banned or Under Review are overwhelmingly associated with claim videos (share counts: 17,774-19,018), while active authors are predominantly associated with opinion videos (share counts: 108-124)
+- Nearly balanced dataset: 50.3% claims, 49.7% opinions
+- Claims average ~100x more views than opinions: 501,029 vs. 4,956 mean views
+- Claims maintain ~33% like-per-view ratio vs. ~22% for opinions
+- Banned/Under Review authors overwhelmingly associated with claim videos
 
 **EDA:**
-- Engagement metrics are heavily right-skewed: a tiny fraction of highly viral videos drives the vast majority of platform traffic, overwhelmingly from claim content
-- Clear behavioral boundaries separate claim and opinion videos across all engagement metrics
-- Author moderation status confirmed as a primary candidate feature for the upcoming classification model
-- Visualizations produced in both Python (Matplotlib/Seaborn) and Tableau (Tableau Story)
+- Engagement metrics heavily right-skewed - tiny fraction of viral claim videos dominates platform traffic
+- Clear behavioral boundaries separate claims and opinions across all metrics
+- Visualizations produced in Python and Tableau (Tableau Story)
 
 **Hypothesis Testing:**
-- Research question: Does creator verification status significantly impact video view count?
+- Research question: Does creator verification status significantly impact view count?
 - Method: Two-sample Welch's t-test (a = 0.05)
-- Unverified accounts: mean 265,664 views vs. verified accounts: mean 91,439 views
+- Unverified: mean 265,664 views vs. verified: mean 91,439 views
 - t-statistic: -25.50, p-value: 2.61 x 10^-120 - null hypothesis rejected
-- Counterintuitive finding: unverified accounts average nearly 3x more views than verified ones - explained by their higher volume of claim videos, which drive massive view spikes
-- verified_status confirmed as a key feature for the upcoming classification model
+- Counterintuitive finding: unverified accounts average 3x more views - explained by higher volume of claim content
+- verified_status confirmed as a key feature for the classification model
+
+---
+
+## Project 3: Automatidata - NYC Taxi Fare Prediction
+
+**Business problem:** The New York City Taxi and Limousine Commission (NYC TLC) needs a model to predict taxi fare amounts, enabling better fare transparency and trip planning for passengers.
+
+**Dataset:** 408,294 taxi trips (22,699 sampled for analysis), 18 variables covering pickup/dropoff times, locations, distances, passenger counts, payment types, and fare components
+
+### Progress
+
+| Phase | Focus | Status |
+|---|---|---|
+| Data Inspection & Profiling | Structural audit, variable investigation, anomaly detection | Complete |
+| Exploratory Data Analysis | EDA and Tableau visualization | Upcoming |
+| Hypothesis Testing | Statistical testing | Upcoming |
+| Regression Modeling | Fare prediction model | Upcoming |
+| ML Classification | Advanced modeling | Upcoming |
+
+### Key Findings
+
+**Data Inspection:**
+- Datetime columns stored as strings - conversion to proper datetime format required before analysis
+- Negative fare and total amount values present (minimum: -120.30) - represent data errors requiring cleaning
+- Extreme fare outlier identified: a 2.60-mile trip costing $1,200.29 - anomalous fare and tip combination
+- Longest trips are not necessarily the most expensive - trip distance alone is insufficient for fare prediction
+- Credit card tips average $2.73 vs. $0.00 for cash - cash tips not recorded in the system, creating a measurement gap
+- Both vendors (Creative Mobile Technologies, VeriFone) have nearly identical mean total amounts (~$16.30)
+- Trip distance and total_amount identified as the two strongest variables for predictive modeling
 
 ---
 
 ## PACE Framework
 
-Both projects follow the PACE framework used in professional data analytics:
+All three projects follow the PACE framework:
 
 - **Plan** - Define the business problem, understand stakeholder needs, assess data structure
 - **Analyze** - Inspect, clean, and explore the data
 - **Construct** - Build statistical tests, models, or visualizations
 - **Execute** - Communicate findings to stakeholders via executive summaries
 
-Each completed phase includes a Jupyter notebook (technical analysis) and an executive summary PDF (stakeholder communication), reflecting the dual technical and communication deliverables expected in real analytics roles.
+Each completed phase includes a Jupyter notebook (technical analysis) and an executive summary PDF (stakeholder communication).
 
 ---
 
@@ -109,40 +137,25 @@ google-advanced-data-analytics-portfolio/
 |
 |- 02-Waze-User-Churn-Prediction/
 |   |- milestone-1-planning/
-|   |   |- Activity_Course_2_Waze_project_lab.ipynb
-|   |   |- Milestone_1_Executive_Summary.pdf
-|   |   |- Waze_project_proposal.pdf
-|   |   |- waze_dataset.csv
-|   |
 |   |- milestone-2-eda/
-|   |   |- Waze_Exploratory_Data_Analysis.ipynb
-|   |   |- Waze_Course_2_executive_summary.pdf
-|   |
 |   |- milestone-3-hypothesis-testing/
-|       |- Activity_Course_4_Waze_project_lab.ipynb
-|       |- Waze_Course_3_executive_summary.pdf
 |
 |- tiktok-claims-project/
 |   |- milestone-1-planning/
-|   |   |- Activity_Course_1_TikTok_project_lab.ipynb
-|   |   |- TikTok_Course_1_executive_summary.pdf
-|   |   |- Data_Dictionary.pdf
-|   |
 |   |- milestone-2-eda/
-|   |   |- EDA_TikTok_project_lab.ipynb
-|   |   |- TikTok_Course_2_executive_summary.pdf
-|   |   |- Tableau_Story.pdf
-|   |
 |   |- milestone-3-hypothesis-testing/
-|       |- Activity_Course_4_TikTok_project_lab.ipynb
-|       |- TikTok_Course_3_executive_summary.pdf
-|       
+|
+|- automatidata-nyc-taxi/
+|   |- milestone-1-data-inspection/
+|       |- Activity_Course_2_Automatidata_project_lab.ipynb
+|       |- Course_1_Automatidata_executive_summary.pdf
+|       |- Automatidata_project_proposal.docx
 ```
 
 ---
 
 ## Tools & Skills
 
-Python (Pandas, NumPy, Matplotlib, Seaborn, SciPy), Tableau, statistical analysis, hypothesis testing, EDA, data visualization, stakeholder communication
+Python (Pandas, NumPy, Matplotlib, Seaborn, SciPy), Tableau, statistical analysis, hypothesis testing, EDA, data cleaning, data visualization, stakeholder communication
 
 **Certificate:** Google Advanced Data Analytics Professional Certificate (Coursera) - in progress
