@@ -99,7 +99,7 @@ Three parallel business scenarios run across the full certificate, with each cou
 | Phase | Focus | Status |
 |---|---|---|
 | Data Inspection & Profiling | Structural audit, variable investigation, anomaly detection | Complete |
-| Exploratory Data Analysis | EDA and Tableau visualization | Upcoming |
+| Exploratory Data Analysis | EDA, Python visualizations, Tableau scatter plot | Complete |
 | Hypothesis Testing | Statistical testing | Upcoming |
 | Regression Modeling | Fare prediction model | Upcoming |
 | ML Classification | Advanced modeling | Upcoming |
@@ -114,6 +114,14 @@ Three parallel business scenarios run across the full certificate, with each cou
 - Credit card tips average $2.73 vs. $0.00 for cash - cash tips not recorded in the system, creating a measurement gap
 - Both vendors (Creative Mobile Technologies, VeriFone) have nearly identical mean total amounts (~$16.30)
 - Trip distance and total_amount identified as the two strongest variables for predictive modeling
+
+**EDA:**
+- 75% of all NYC taxi trips are under 3.06 miles and cost $17.80 or less - the market is dominated by short, affordable rides
+- Busiest months: March and October; slowest: July and August
+- Highest revenue days: Thursday ($57,182) and Friday ($55,819); lowest: Sunday ($48,624)
+- Negative fares, zero-distance trips with costs, and invalid RateCodeID values (e.g., 99) confirmed as cleaning priorities
+- Datetime columns converted to proper format - trip duration now calculable as a modeling feature
+- Tableau scatter plot built showing trip_distance vs total_amount relationship for stakeholder communication
 
 ---
 
@@ -147,9 +155,8 @@ google-advanced-data-analytics-portfolio/
 |
 |- automatidata-nyc-taxi/
 |   |- milestone-1-data-inspection/
-|       |- Activity_Course_2_Automatidata_project_lab.ipynb
-|       |- Course_1_Automatidata_executive_summary.pdf
-|       |- Automatidata_project_proposal.docx
+|   |- milestone-2-eda/
+|       
 ```
 
 ---
