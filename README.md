@@ -100,7 +100,7 @@ Three parallel business scenarios run across the full certificate, with each cou
 |---|---|---|
 | Data Inspection & Profiling | Structural audit, variable investigation, anomaly detection | Complete |
 | Exploratory Data Analysis | EDA, Python visualizations, Tableau scatter plot | Complete |
-| Hypothesis Testing | Statistical testing | Upcoming |
+| Hypothesis Testing | A/B test: payment type vs. fare amount | Complete |
 | Regression Modeling | Fare prediction model | Upcoming |
 | ML Classification | Advanced modeling | Upcoming |
 
@@ -147,15 +147,18 @@ google-advanced-data-analytics-portfolio/
 |   |- milestone-1-planning/
 |   |- milestone-2-eda/
 |   |- milestone-3-hypothesis-testing/
+|       
 |
 |- tiktok-claims-project/
 |   |- milestone-1-planning/
 |   |- milestone-2-eda/
 |   |- milestone-3-hypothesis-testing/
+|     
 |
 |- automatidata-nyc-taxi/
 |   |- milestone-1-data-inspection/
 |   |- milestone-2-eda/
+|   |- milestone-3-hypothesis-testing/
 |       
 ```
 
