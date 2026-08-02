@@ -58,8 +58,8 @@ Trip distance is by far the biggest driver of taxi fares. Time of day and passen
 
 ## Deliverables
 
-- Activity_Exemplar__Course_4_Automatidata_Executive_Summary.ipynb - Regression modeling notebook
-- Activity_Exemplar__Course_4_Automatidata_Executive_Summary.pdf - Stakeholder executive summary
+- Course_4_Automatidata_Executive_Summary.ipynb - Regression modeling notebook
+- Course_4_Automatidata_Executive_Summary.pdf - Stakeholder executive summary
 
 ## Tools
 
