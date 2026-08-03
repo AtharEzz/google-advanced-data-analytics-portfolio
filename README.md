@@ -62,8 +62,8 @@ Three parallel business scenarios run across the full certificate:
 | Data Inspection & Profiling | Class balance, engagement baseline, variable relationships | Complete |
 | Exploratory Data Analysis | Distribution analysis, Tableau Story visualization | Complete |
 | Hypothesis Testing | Two-sample t-test on verification status vs. view count | Complete |
-| Regression Modeling | Predictive modeling | Upcoming |
-| ML Classification | Final classification model | Upcoming |
+| Regression Modeling (Logistic) | Logistic regression to predict verified status | Complete |
+| ML Classification | Final claims/opinions classifier | Upcoming |
 
 ### Key Findings
 
@@ -85,6 +85,16 @@ Three parallel business scenarios run across the full certificate:
 - t-statistic: -25.50, p-value: 2.61 x 10^-120 - null hypothesis rejected
 - Unverified accounts average 3x more views - explained by higher volume of claim content
 - verified_status confirmed as a key feature for the classification model
+
+**Regression Analysis (Logistic Regression):**
+- Target: predict whether a video creator is verified or not verified
+- Class imbalance handled via upsampling (93.7% not verified → 50/50 balanced training set)
+- Multicollinearity identified among engagement metrics - kept only video_like_count as representative
+- Logistic regression on 5 features: video_duration_sec, video_like_count, text_length, claim_status, author_ban_status
+- Overall accuracy: 63% on 7,154 test records
+- Not verified: Precision 59%, Recall 87%, F1 0.70 - model catches most unverified accounts
+- Verified: Precision 74%, Recall 38%, F1 0.51 - model misses many verified accounts
+- Model is biased toward "not verified" - threshold tuning and non-linear models recommended as next steps
 
 ---
 
@@ -165,6 +175,7 @@ google-advanced-data-analytics-portfolio/
 |   |- milestone-1-planning/
 |   |- milestone-2-eda/
 |   |- milestone-3-hypothesis-testing/
+|   |- milestone-4-regression-modeling/
 |
 |- automatidata-nyc-taxi/
 |   |- milestone-1-data-inspection/
