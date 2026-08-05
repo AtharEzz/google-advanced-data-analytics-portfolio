@@ -23,8 +23,8 @@ Three parallel business scenarios run across the full certificate:
 | Data Inspection & Profiling | Structural audit, missing value analysis, churn baseline | Complete |
 | Exploratory Data Analysis | Distribution analysis, outlier detection, behavioral visualization | Complete |
 | Hypothesis Testing | Two-sample t-test on device type vs. drive count | Complete |
-| Regression Modeling | Predictive modeling | Upcoming |
-| ML Classification | Final classification model | Upcoming |
+| Regression Modeling (Logistic) | Logistic regression to predict churn, feature engineering | Complete |
+| ML Classification | Final churn prediction model | Upcoming |
 
 ### Key Findings
 
@@ -46,6 +46,15 @@ Three parallel business scenarios run across the full certificate:
 - iPhone: mean 67.86 drives/month vs. Android: mean 66.23 drives/month
 - t-statistic: 1.46, p-value: 0.1434 - fail to reject null hypothesis
 - Device type is not a significant predictor - focus on behavioral features instead
+
+**Regression Analysis (Logistic Regression):**
+- Two engineered features: km_per_driving_day and professional_driver (professional drivers churn at 7.6% vs. 19.9% for others)
+- Multicollinearity removed: sessions dropped (0.997 correlation with drives), driving_days dropped (0.95 correlation with activity_days)
+- VIF verified for all remaining features (all under 5)
+- Logistic regression: accuracy 82.4%, but only 9% recall for churned users - model is biased toward predicting "retained" due to class imbalance
+- Retained: Precision 83%, Recall 98%; Churned: Precision 52%, Recall 9%
+- Key finding: activity_days is the strongest predictor of retention - frequent daily engagement is far more important than total distance driven
+- Model serves as an explanatory baseline; Random Forest/XGBoost with SMOTE recommended as next step
 
 ---
 
@@ -170,6 +179,8 @@ google-advanced-data-analytics-portfolio/
 |   |- milestone-1-planning/
 |   |- milestone-2-eda/
 |   |- milestone-3-hypothesis-testing/
+|   |- milestone-4-regression-modeling/
+|       
 |
 |- tiktok-claims-project/
 |   |- milestone-1-planning/
@@ -182,6 +193,7 @@ google-advanced-data-analytics-portfolio/
 |   |- milestone-2-eda/
 |   |- milestone-3-hypothesis-testing/
 |   |- milestone-4-regression-modeling/
+|       
 |       
 ```
 
