@@ -121,7 +121,7 @@ Three parallel business scenarios run across the full certificate:
 | Exploratory Data Analysis | EDA, Python visualizations, Tableau scatter plot | Complete |
 | Hypothesis Testing (A/B Test) | Payment type vs. fare amount | Complete |
 | Regression Modeling | Multiple linear regression for fare prediction | Complete |
-| ML Classification | Advanced modeling | Upcoming |
+| ML Classification (RF & XGBoost) | Predict generous tippers using pre-trip features | Complete |
 
 ### Key Findings
 
@@ -154,6 +154,16 @@ Three parallel business scenarios run across the full certificate:
 - mean_distance is by far the strongest predictor (coefficient: 7.14) - distance drives fare price
 - Rush hour has very little effect on base fare - NYC taxi meter is primarily distance-based
 - Residual mean: -0.015 (near zero - no systematic bias)
+
+**ML Classification (Random Forest & XGBoost):**
+- Ethical pivot: shifted from predicting non-tippers (discrimination risk) to predicting generous tippers (positive signal)
+- Credit card payments only (15,265 rows) - cash tips recorded as $0.00
+- Target: tip >= 20% of fare; class balance: 52.6% generous vs. 47.4% not generous
+- 347 features after one-hot encoding locations, day, month, and time-of-day bins
+- XGBoost test: Precision 0.686, Recall 0.807, F1 0.741, Accuracy 0.704 (champion)
+- Random Forest test: Precision 0.628, Recall 0.868, F1 0.729, Accuracy 0.660
+- XGBoost chosen for higher precision - fewer false positives is the priority here
+- Both models make more false positive than false negative errors
 
 ---
 
@@ -193,7 +203,7 @@ google-advanced-data-analytics-portfolio/
 |   |- milestone-2-eda/
 |   |- milestone-3-hypothesis-testing/
 |   |- milestone-4-regression-modeling/
-|       
+|   |- milestone-5-ml-classification/
 |       
 ```
 
