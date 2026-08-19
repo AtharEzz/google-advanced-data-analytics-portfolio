@@ -72,7 +72,7 @@ Three parallel business scenarios run across the full certificate:
 | Exploratory Data Analysis | Distribution analysis, Tableau Story visualization | Complete |
 | Hypothesis Testing | Two-sample t-test on verification status vs. view count | Complete |
 | Regression Modeling (Logistic) | Logistic regression to predict verified status | Complete |
-| ML Classification | Final claims/opinions classifier | Upcoming |
+| ML Classification (RF & XGBoost) | Claim vs. opinion classifier - near-perfect accuracy | Complete |
 
 ### Key Findings
 
@@ -104,6 +104,17 @@ Three parallel business scenarios run across the full certificate:
 - Not verified: Precision 59%, Recall 87%, F1 0.70 - model catches most unverified accounts
 - Verified: Precision 74%, Recall 38%, F1 0.51 - model misses many verified accounts
 - Model is biased toward "not verified" - threshold tuning and non-linear models recommended as next steps
+
+**ML Classification (Random Forest & XGBoost):**
+- Goal: classify videos as claims vs. opinions to triage content moderation backlog
+- CountVectorizer with bigrams/trigrams extracted NLP features from video transcription text
+- Three-way split: 60% train / 20% validation / 20% test (stratified)
+- Random Forest (champion): validation accuracy 1.00, precision 1.00, recall 1.00
+- XGBoost: validation accuracy 0.99, precision 0.99, recall 0.99
+- Test holdout: RF made only 6 errors across 3,817 samples (~99.7% accuracy)
+- video_view_count (~60% importance) and video_like_count (~25%) are dominant features
+- Near-perfect accuracy expected: claim videos average 100x more views than opinions (confirmed in EDA)
+- Model ready for production deployment in content moderation pipeline
 
 ---
 
@@ -190,6 +201,7 @@ google-advanced-data-analytics-portfolio/
 |   |- milestone-2-eda/
 |   |- milestone-3-hypothesis-testing/
 |   |- milestone-4-regression-modeling/
+|   |- milestone-5-ml-classification/
 |       
 |
 |- tiktok-claims-project/
@@ -197,6 +209,7 @@ google-advanced-data-analytics-portfolio/
 |   |- milestone-2-eda/
 |   |- milestone-3-hypothesis-testing/
 |   |- milestone-4-regression-modeling/
+|   |- milestone-5-ml-classification/
 |
 |- automatidata-nyc-taxi/
 |   |- milestone-1-data-inspection/
@@ -204,7 +217,7 @@ google-advanced-data-analytics-portfolio/
 |   |- milestone-3-hypothesis-testing/
 |   |- milestone-4-regression-modeling/
 |   |- milestone-5-ml-classification/
-|       
+
 ```
 
 ---
