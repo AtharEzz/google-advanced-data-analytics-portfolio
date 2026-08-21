@@ -199,9 +199,6 @@ All three projects follow the PACE framework:
 
 Each completed phase includes a Jupyter notebook (technical analysis) and an executive summary PDF (stakeholder communication).
 
----
-
-
 
 
 ---
