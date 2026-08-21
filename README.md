@@ -24,7 +24,7 @@ Three parallel business scenarios run across the full certificate:
 | Exploratory Data Analysis | Distribution analysis, outlier detection, behavioral visualization | Complete |
 | Hypothesis Testing | Two-sample t-test on device type vs. drive count | Complete |
 | Regression Modeling (Logistic) | Logistic regression to predict churn, feature engineering | Complete |
-| ML Classification | Final churn prediction model | Upcoming |
+| ML Classification (RF & XGBoost) | Churn prediction with threshold analysis | Complete |
 
 ### Key Findings
 
@@ -55,6 +55,16 @@ Three parallel business scenarios run across the full certificate:
 - Retained: Precision 83%, Recall 98%; Churned: Precision 52%, Recall 9%
 - Key finding: activity_days is the strongest predictor of retention - frequent daily engagement is far more important than total distance driven
 - Model serves as an explanatory baseline; Random Forest/XGBoost with SMOTE recommended as next step
+
+**ML Classification (Random Forest & XGBoost):**
+- 7 features engineered including km_per_hour, percent_sessions_in_last_month, total_sessions_per_day, km_per_drive, km_per_driving_day, percent_of_drives_to_favorite, professional_driver
+- 6 of top 10 XGBoost features are engineered - feature engineering significantly drove performance
+- XGBoost test: Precision 0.412, Recall 0.185, F1 0.256, Accuracy 0.809 (champion)
+- Random Forest test: Precision 0.445, Recall 0.120, F1 0.189, Accuracy 0.817
+- XGBoost recall (18.5%) nearly doubled the logistic regression baseline (~9%) from Milestone 4
+- Threshold analysis: at threshold=0.171, recall reaches 50.1% - suitable for low-cost retention campaigns
+- km_per_hour is the strongest predictor (F-score 1163) - driving density signals long-term retention
+- Model not recommended for major business decisions due to low recall, but valuable for low-cost exploratory campaigns
 
 ---
 
@@ -191,6 +201,11 @@ Each completed phase includes a Jupyter notebook (technical analysis) and an exe
 
 ---
 
+
+
+
+---
+
 ## Repository Structure
 
 ```
@@ -226,4 +241,4 @@ google-advanced-data-analytics-portfolio/
 
 Python (Pandas, NumPy, Matplotlib, Seaborn, SciPy, Scikit-learn), Tableau, statistical analysis, hypothesis testing, A/B testing, feature engineering, multiple linear regression, EDA, data visualization, stakeholder communication
 
-**Certificate:** Google Advanced Data Analytics Professional Certificate (Coursera) - in progress
+**Certificate:** Google Advanced Data Analytics Professional Certificate (Coursera) 
